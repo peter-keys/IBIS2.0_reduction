@@ -1,0 +1,287 @@
+;;*****************************************************************************************
+;;*****************************************************************************************
+;; CONFIGURATION PART
+;;*****************************************************************************************
+;;*****************************************************************************************
+
+;------------------------------------------------------------------------------------------
+; MAIN PATHES 
+;------------------------------------------------------------------------------------------
+;; date  : yyyy/mm/dd of observation
+;; path  : path of data directory
+;; spath : path to where raw narrowband data is stored
+;; wpath : path to where raw broadband data is stored
+;; cpath : path to where intermediate calibration data is stored 
+
+date   = '20110428'
+path   = '/scr2/ali/ibis/'+date+'/'
+spath  = path + 'scans/'
+wpath  = path + 'whitelight/'
+cpath =  
+
+;------------------------------------------------------------------------------------------
+; MAIN CHARACTERISTICS 
+;------------------------------------------------------------------------------------------
+;; pol         : set to differ whether spectroscopy or spectropolarimetry 
+;;               "pol=0" for spectroscopy
+;;               "pol=1" for spectropolarimetry
+;; dual        : indicates dual-beam spectropolarimetry
+;;               "dual=1" when "pol=1" and dual-beam spectropolarimetry
+;; single      : indicates single-beam spectropolarimetry
+;;               "single=1" when "pol=1" and single-beam spectropolarimetry
+;; stokes      : set to differ bewteen full Stokes, dual-beam Stokes I and longitudinal 
+;;               "stokes=1" when dual-beam Stokes I
+;;               "stokes=6" when full Stokes spectropolarimetry
+;;               "stokes=2" when longitudinal (just Stokes V)
+;; orientation : orientation between broadband and narrowband
+;;               orientation = 'default' when reverse(rotate(,1))
+;; scan_mode   : wavelength sequence
+;;               "scan_mode = 'default'" when monotonically increasing
+;;               "scan_mode = 'rabbit'"  when jumping back and forth between wings
+
+pol    = 0
+dual   = 0 
+single = 0
+stokes = 1
+orientation = 'default'
+;;scan_mode   = 'default' ;; not activated
+
+;------------------------------------------------------------------------------------------
+; FILTER SEQUENCE
+;------------------------------------------------------------------------------------------
+;; filter     : central wavelength of the filter
+;; nstart_ext : start extension number of filter in fits file
+;; nend_ext   : end extension number of filter in fits file
+;; nrepeat    : number of repetitions of same filter in the same fits file
+
+filter     = '5434' 
+nstart_ext = 1
+nend_ext   = 16
+nrepeat    = 1
+
+filter     = '5896'
+nstart_ext = 17
+nend_ext   = 33
+nrepeat    = 1
+
+filter     = '6563'
+nstart_ext = 34
+nend_ext   = 46
+nrepeat    = 1
+
+filter     = '8542'      
+nstart_ext = 47             
+nend_ext   = 63             
+nrepeat    = 1  
+
+
+;------------------------------------------------------------------------------------------
+; DATA DIRECTORIES
+;------------------------------------------------------------------------------------------
+
+;; dcdir_nb    : path to where narrowband dark data is stored
+;; dcdir_bb    : path to where broadband dark data is stored
+;; ffdir_nb    : path to where narrowband flat data is stored
+;; ffdir_bb    : path to where broadband flat data is stored
+;; datadir_nb  : path to where narrowband science data is stored
+;; datadir_bb  : path to where broadband science data is stored
+;; dir_tmp_nb  : path to where intermediate narrowband results are stored
+;; dir_tmp_bb  : path to where intermediate broadband results are stored
+;; griddir_nb  : path to where narrowband line grid data is stored
+;; griddir_bb  : path to where broadband line grid data is stored
+;; tardir_nb   : path to where narrowband AF target data is stored
+;; tardir_bb   : path to where broadband AF target data is stored
+;; dotdir_nb   : path to where narrowband dot grid data is stored
+;; dotdir_bb   : path to where broadband dot grid data is stored
+
+; DARK DATA
+dcdir_nb = spath + 'DarkCalibration/' +date+ '_170044/' ;;; ibis all
+dcdir_bb = wpath + 'DarkCalibration/' +date+ '_170044/'
+;dcdir_nb = spath + 'DarkCalibration/' +date+ '_165839/' ;;; speckle ;;;; empty
+;dcdir_bb = wpath + 'DarkCalibration/' +date+ '_165839/'
+;dcdir_nb = spath + 'DarkCalibration/' +date+ '_170044/' ;;; ibis 8542 only
+;dcdir_bb = wpath + 'DarkCalibration/' +date+ '_170044/'
+
+; FLAT DATA
+ffdir_nb = spath + 'FlatFieldCalibration/' +date+ '_161933/' ;;; ibis all
+ffdir_bb = wpath + 'FlatFieldCalibration/' +date+ '_161933/'
+;ffdir_nb = spath + 'FlatFieldCalibration/' +date+ '_161554/' ;;; speckle
+;ffdir_bb = wpath + 'FlatFieldCalibration/' +date+ '_161554/'
+;ffdir_nb = spath + 'FlatFieldCalibration/' +date+ '_164806/' ;;; ibis 8542 only
+;ffdir_bb = wpath + 'FlatFieldCalibration/' +date+ '_164806/'
+
+; SCIENCE, SUMMARY, RESULT DATA
+
+datadir_nb = spath + 'ScienceObservation/' +date+ '_150053/' 
+datadir_bb = wpath + 'ScienceObservation/' +date+ '_150053/'
+dir_tmp_nb = '/samba/mverma/ibis/' +date+ '/scans/summary_001/'
+dir_tmp_bb = '/samba/mverma/ibis/' +date+ '/whitelight/summary_001/'
+rdir_nb    = '/samba/mverma/ibis/' +date+ '/scans/results_001/'
+rdir_bb    = '/samba/mverma/ibis/' +date+ '/whitelight/results_001/'
+
+
+;datadir_nb = spath + 'ScienceObservation/' +date+ '_142401/'   ;;; ibis speckle all, 20
+;datadir_bb = wpath + 'ScienceObservation/' +date+ '_142401/'
+
+;datadir_nb = spath + 'ScienceObservation/' +date+ '_144153/'   ;;; ibis all, 38 scans, big spot   
+;datadir_bb = wpath + 'ScienceObservation/' +date+ '_144153/'
+
+;datadir_nb = spath + 'ScienceObservation/' +date+ '_144437/'   ;;; ibis all, 98 scans, big spot
+;datadir_bb = wpath + 'ScienceObservation/' +date+ '_144437/'
+
+; datadir_nb = spath + 'ScienceObservation/' +date+ '_145152/' ;;; ibis all, 30 scans, big spot       
+; datadir_bb = wpath + 'ScienceObservation/' +date+ '_145152/'
+; dir_tmp_nb = '/scr1/mverma/ibis/' +date+ '/scans/summary_000/'
+; dir_tmp_bb = '/scr1/mverma/ibis/' +date+ '/whitelight/summary_000/'
+; rdir_nb    = '/scr1/mverma/ibis/' +date+ '/scans/results_000/'
+; rdir_bb    = '/scr1/mverma/ibis/' +date+ '/whitelight/results_000/'
+
+
+datadir_nb = spath + 'ScienceObservation/' +date+ '_150053/' ;;; ibis all, 50 scans, big spot 
+datadir_bb = wpath + 'ScienceObservation/' +date+ '_150053/'
+dir_tmp_nb = '/samba/mverma/ibis/' +date+ '/scans/summary_001/'
+dir_tmp_bb = '/samba/mverma/ibis/' +date+ '/whitelight/summary_001/'
+rdir_nb    = '/samba/mverma/ibis/' +date+ '/scans/results_001/'
+rdir_bb    = '/samba/mverma/ibis/' +date+ '/whitelight/results_001/'
+
+
+;datadir_nb  = spath + 'ScienceObservation/' +date+ '_151700/' ;;; ibis 8542, 200 scans, 17 images, no repeat, big spot
+;datadir_bb  = wpath + 'ScienceObservation/' +date+ '_151700/'
+
+;datadir_nb  = spath + 'ScienceObservation/' +date+ '_153138/' ;;; ibis speckle all, 20, big spot
+;datadir_bb  = wpath + 'ScienceObservation/' +date+ '_153138/'
+
+;datadir_nb  = spath + 'ScienceObservation/' +date+ '_155224/' ;;; ibis speckle all, 20, little spots/pores
+;datadir_bb  = wpath + 'ScienceObservation/' +date+ '_155224/'
+
+;datadir_nb  = spath + 'ScienceObservation/' +date+ '_160131/' ;;; ibis all, 10 scans, little spots/pores
+;datadir_bb  = wpath + 'ScienceObservation/' +date+ '_160131/'
+
+;datadir_nb  = spath + 'ScienceObservation/' +date+ '_160847/' ;;; ibis speckle all, 5, between big spot and little spots/pores
+;datadir_bb  = wpath + 'ScienceObservation/' +date+ '_160847/'
+
+
+; GRID, TARGET, DOT DATA
+griddir_nb = spath + 'GridImages/'   +date+ '_170924/' ;;; ibis all
+griddir_bb = wpath + 'GridImages/'   +date+ '_170924/'
+tardir_nb  = spath + 'TargetImages/' +date+ '_170718/'
+tardir_bb  = wpath + 'TargetImages/' +date+ '_170718/'
+dotdir_nb  = spath + 'GridImages/'   +date+ '_171210/'
+dotdir_bb  = wpath + 'GridImages/'   +date+ '_171210/'
+
+;------------------------------------------------------------------------------------------
+; OUTPUT FILENAMES
+;------------------------------------------------------------------------------------------
+;; ffile_bb : file that contains averaged broadband flat
+;; dfile_bb : file that contains averaged broadband dark
+;; ffile_nb : file that contains averaged narrowband flat file
+;; dfile_nb : file that contains averaged narrowband dark file
+;; afile    : file that contains the alignment parameters for a filter
+;; gwfile   : file that contains a sequence of broadband line-grid images
+;; gsfile   : file that contains a sequence of narrowband line-grid images
+;; bfile    : file that contains the wavelength shift maps
+;; pfile    : file that contains the prefilter curve for a filter
+;; gfile    : file that contains the narrowband gain
+
+ffile_bb  = cpath + 'flat_' +date+ '_all.sav'
+dfile_bb  = cpath + 'dark_' +date+ '_all.sav'
+;ffile_bb = cpath + 'flat_' +date+ '_speckle.sav'
+;dfile_bb = cpath + 'flat_' +date+ '_speckle.sav'
+;ffile_bb = cpath + 'flat_' +date+ '_single8542.sav'
+;dfile_bb = cpath + 'flat_' +date+ '_single8542.sav'
+ffile_nb  = cpath + filter + '_flat.sav'
+dfile_nb  = cpath + filter + '_dark.sav'
+afile     = cpath + filter + '_align_params.sav'
+gwfile    = cpath + filter + '_grid_seq.sav'
+gsfile    = cpath + filter + '_bb_grid_seq.sav'
+bfile     = cpath + filter + '_blueshift.sav'
+pfile     = cpath + filter + '_prefilter.sav'
+gfile     = cpath + filter + '_gain.sav'
+
+;---------------------------------------------------------
+; ALIGN, WAVELENGTHSHIFT AND GAIN MODULE
+;---------------------------------------------------------
+;; method_align : method used to determine the alignment parameters
+;;                "method='CORR' when line-grid correlation method is used
+;;                "method='HOUGH' when line-grid Hough transformation is used (not implemented yet)
+;; npoints      : number of points used to perform paraboloc fit to line-core position        
+;; smooth       : smoothing parameter for spectral profile
+;; wshift       : map used to perform wavelength shift correction
+;;                "wshift = 'poly_fit'"
+;;                "wshift = 'poly'"
+;;                "wshift = 'cog_fit'"
+;;                "wshift = 'cog'"
+
+method_align = 'CORR'
+npoints      = 3
+smooth       = 3
+wshift       = 'poly_fit'
+
+; 8542 scales
+;----------------------------------------------------------------
+;Image scale in broadband [x,y] :     0.0994076    0.0994378
+;Image scale in narrowband [x,y] :     0.0976578    0.0976531
+;----------------------------------------------------------------
+
+;---------------------------------------------------------
+; IMAGE RECONSTRUCTION MODULE -- OPTIONAL
+;---------------------------------------------------------
+
+ffile_bb_ref = cpath + 'flat_' + date + '_all.sav'
+dfile_bb_ref = cpath + 'dark_' + date + '_all.sav'
+nstart_ext_ref = 1
+nend_ext_ref = 63
+nrepeat_ref = 1
+ref_indir = datadir_bb
+ref_outdir = '/samba/mverma/ibis/'+ date + '/speckle_001/'
+bin = [1000,1000]
+swap = 0
+
+;---------------------------------------------------------
+; DESTRETCH AND MAIN SPECTROSCOPIC CALIBRATION MODULE
+;---------------------------------------------------------
+
+;; scan : start and end scan to calibrate
+;; 
+
+scan              = [1,49]
+ref_dir           = '/samba/mverma/ibis/'+ date + '/speckle_001/'
+rfiles            = file_search( ref_dir + 'speckle_*.sav', COUNT = nref)
+method_ref        = 'EXTERNAL';'AVG';'AVG'
+detrend           = 0
+kernel            = [0,64,32]
+region            = [[260,280],[770,790]]
+avg_img           = 3
+external_filename = rfiles
+
+dstr_idl = ibis_create_dstr_struct(method_ref, detrend, kernel, region, avg_img, external_filename)
+
+;--------------------------------------------------------
+
+;;*****************************************************************************************
+;;*****************************************************************************************
+;; CONTROL PART FOR IBIS_EXE	
+;;*****************************************************************************************
+;;*****************************************************************************************
+
+FLAG_DATABASE         = 0
+FLAG_FLAT_DARK_NB     = 0
+FLAG_FLAT_DARK_BB     = 0
+FLAG_ALIGN            = 0
+FLAG_PREPARE          = 1
+FLAG_WAVELENGTH_SHIFT = 0
+FLAG_GAIN             = 0
+FLAG_SPECKLE          = 0
+FLAG_EXTERNAL         = 0
+FLAG_SEQUENCE_REF     = 0
+FLAG_CALIB            = 0
+FLAG_PREPARE_POL      = 0
+FLAG_POLCURVES        = 0 
+FLAG_XMATRICES        = 0 
+FLAG_CALIB_POL        = 0
+
+;;*****************************************************************************************
+;;*****************************************************************************************
+;; DONE
+;;*****************************************************************************************
+;;*****************************************************************************************
